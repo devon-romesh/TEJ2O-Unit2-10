@@ -19,6 +19,9 @@ input.onButtonPressed(Button.A, function () {
 
     lightLevels = input.lightLevel()
 
+    // shows the current light level 
+    basic.showNumber(lightLevels)
+
     myNeopixelStrip.clear()
 
     if (lightLevels > 52) {
