@@ -5,40 +5,82 @@
  * This program lights up neopixels determind by light.
 */
 
-//variables
-let lightLevels: number = 0
-const myNeopixelStrip = neopixel.create(DigitalPin.P16, 4, NeoPixelMode.RGB)
+// variables
+let neopixelStrip: neopixel.Strip = null
+let variableLight: number = 50
 
-//setup
+// setup
+basic.clearScreen()
+neopixelStrip = neopixel.create(DigitalPin.P16, 4, NeoPixelMode.RGB)
+neopixelStrip.setPixelColor(0, neopixel.colors(NeoPixelColors.Black))
+neopixelStrip.setPixelColor(1, neopixel.colors(NeoPixelColors.Black))
+neopixelStrip.setPixelColor(2, neopixel.colors(NeoPixelColors.Black))
+neopixelStrip.setPixelColor(3, neopixel.colors(NeoPixelColors.Black))
+neopixelStrip.show()
 basic.showIcon(IconNames.Happy)
-myNeopixelStrip.clear()
-myNeopixelStrip.show()
 
-// code for lighting up neopixels
-input.onButtonPressed(Button.A, function () {
+// program
+input.onButtonPressed(Button.A, function (){
+  basic.clearScreen()
+  variableLight = input.lightLevel()
+  basic.showNumber(variableLight)
 
-    lightLevels = input.lightLevel()
+  // lower than 51
+  if (variableLight <= 51) {
+    neopixelStrip.setPixelColor(0, neopixel.colors(NeoPixelColors.Black))
+    neopixelStrip.setPixelColor(1, neopixel.colors(NeoPixelColors.Black))
+    neopixelStrip.setPixelColor(2, neopixel.colors(NeoPixelColors.Black))
+    neopixelStrip.setPixelColor(3, neopixel.colors(NeoPixelColors.Black))
+    basic.showIcon(IconNames.Yes)
+    neopixelStrip.show()
+  }
 
-    // shows the current light level 
-    basic.showNumber(lightLevels)
+  // greater than 52 lower than 104
+  if (variableLight >= 52 && variableLight <= 104) {
+    neopixelStrip.setPixelColor(0, neopixel.colors(NeoPixelColors.White))
+    neopixelStrip.setPixelColor(1, neopixel.colors(NeoPixelColors.Black))
+    neopixelStrip.setPixelColor(2, neopixel.colors(NeoPixelColors.Black))
+    neopixelStrip.setPixelColor(3, neopixel.colors(NeoPixelColors.Black))
+    basic.showIcon(IconNames.Yes)
+    neopixelStrip.show()
+  }
 
-    myNeopixelStrip.clear()
+  // greater than 104
+  if (variableLight > 104 && variableLight <= 156) {
+    neopixelStrip.setPixelColor(0, neopixel.colors(NeoPixelColors.White))
+    neopixelStrip.setPixelColor(1, neopixel.colors(NeoPixelColors.White))
+    neopixelStrip.setPixelColor(2, neopixel.colors(NeoPixelColors.Black))
+    neopixelStrip.setPixelColor(3, neopixel.colors(NeoPixelColors.Black))
+    basic.showIcon(IconNames.Yes)
+    neopixelStrip.show()
+  }
 
-    if (lightLevels > 52) {
-        myNeopixelStrip.setPixelColor(0, neopixel.colors(NeoPixelColors.Red))
-    }
+  // greater than 156
+    if (variableLight > 156 && variableLight <= 208) {
+     neopixelStrip.setPixelColor(0, neopixel.colors(NeoPixelColors.White))
+     neopixelStrip.setPixelColor(1, neopixel.colors(NeoPixelColors.White))
+     neopixelStrip.setPixelColor(2, neopixel.colors(NeoPixelColors.White))
+     neopixelStrip.setPixelColor(3, neopixel.colors(NeoPixelColors.Black))
+     basic.showIcon(IconNames.Yes)
+     neopixelStrip.show()
+  }
 
-    if (lightLevels > 104) {
-        myNeopixelStrip.setPixelColor(1, neopixel.colors(NeoPixelColors.Red))
-    }
+  // greater than 208
+  if (variableLight > 208) {
+    neopixelStrip.setPixelColor(0, neopixel.colors(NeoPixelColors.White))
+    neopixelStrip.setPixelColor(1, neopixel.colors(NeoPixelColors.White))
+    neopixelStrip.setPixelColor(2, neopixel.colors(NeoPixelColors.White))
+    neopixelStrip.setPixelColor(3, neopixel.colors(NeoPixelColors.White))
+    basic.showIcon(IconNames.Yes)
+    neopixelStrip.show()
+  }
 
-    if (lightLevels > 156) {
-        myNeopixelStrip.setPixelColor(2, neopixel.colors(NeoPixelColors.Red))
-    }
-
-    if (lightLevels > 208) {
-        myNeopixelStrip.setPixelColor(3, neopixel.colors(NeoPixelColors.Red))
-    }
-
-    myNeopixelStrip.show()
+  // reset
+  pause(5000)
+  basic.showIcon(IconNames.Happy)
+  neopixelStrip.setPixelColor(0, neopixel.colors(NeoPixelColors.Black))
+  neopixelStrip.setPixelColor(1, neopixel.colors(NeoPixelColors.Black))
+  neopixelStrip.setPixelColor(2, neopixel.colors(NeoPixelColors.Black))
+  neopixelStrip.setPixelColor(3, neopixel.colors(NeoPixelColors.Black))
+  neopixelStrip.show()
 })
