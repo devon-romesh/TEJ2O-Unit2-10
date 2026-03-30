@@ -1,14 +1,15 @@
 """
 Created by: Devon
 Created on: Mar 2026
-This module is a Micro:bit MicroPython program
+This module is a that displays light determined on neopixels.
 """
 
 from microbit import *
-import neopixel 
+import neopixel
 
-# the variables needed
-lightLevels = 0
+
+# variables needed
+lightLevel = 0
 myNeopixelStrip = neopixel.NeoPixel(pin16, 4)
 
 # setup
@@ -19,23 +20,29 @@ myNeopixelStrip.show()
 # running Button A
 while True:
     if button_a.is_pressed():
-        lightLevels = display.read_light_level()
+        lightLevel = display.read_light_level()
+
         myNeopixelStrip.clear()
 
-        # if light level is less than 52
-        if lightLevels > 52:
-            myNeopixelStrip[0] = (255, 255, 255) 
+        if lightLevel > 52:
+            myNeopixelStrip[0] = (255, 255, 255)
 
-        # if light level is less than 104
-        if lightLevels > 104:
+        if lightLevel > 104:
             myNeopixelStrip[1] = (255, 255, 255)
 
-        # if light level is less than 156
-        if lightLevels > 156:
+        if lightLevel > 156:
             myNeopixelStrip[2] = (255, 255, 255)
 
-        # if light level is less than 208
-        if lightLevels > 208:
+        if lightLevel > 208:
             myNeopixelStrip[3] = (255, 255, 255)
+
         myNeopixelStrip.show()
-        display.scroll("Light level is " + (lightLevels))
+
+        display.scroll("Light level is " + str(lightLevel))
+
+    # Resets it
+    if button_b.is_pressed():
+        display.clear()
+        myNeopixelStrip.clear()
+        myNeopixelStrip.show()
+        display.show(Image.HAPPY)
